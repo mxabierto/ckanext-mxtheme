@@ -16,29 +16,28 @@
           {% block toolbar %}
             <div class="toolbar breadcrumb-container">
                <div class="container-fluid">
-                 <div class="row" style="margin-top: 100px;">
+                 <div class="row">
                    {% block breadcrumb %}
                      {% if self.breadcrumb_content() | trim %}
-                        <div class="col-md-7">
+                        <div class="col-md-7 col-sm-12">
                             <ul class="breadcrumb">
                               {% snippet 'snippets/home_breadcrumb_item.html' %}
-                              {% block breadcrumb_content %}{% endblock %} 
+                              {% block breadcrumb_content %}{% endblock %}
                             </ul>
                         </div>
-                        {# 
+                        {#
                        <ol class="breadcrumb">
                          {% snippet 'snippets/home_breadcrumb_item.html' %}
                          {% block breadcrumb_content %}{% endblock %}
                        </ol>
-                        #}                   
+                        #}
                      {% endif %}
                     {% endblock %}
-                     <div class="col-md-5">
+                     <div class="col-md-5 col-sm-12">
                         <ul class="submenu">
                             <li><a href="/busca/dataset">Todos los datos</a></li>
                             <li><a href="/busca/organization">Instituciones</a></li>
                             <li><a href="/busca/group">Grupos</a></li>
-                            <li><a href="https://datos.gob.mx/idmx">IDMX</a></li>
                         </ul>
                      </div>
                   </div>
@@ -53,37 +52,38 @@
                         <div id="main-container">
                             <div class="row">
                                 {% block secondary %}
-                                    <div id="sidebar" class="col-md-3">
+                                    <div id="sidebar" class="col-md-3 col-sm-3">
                                         {% block secondary_content %}{% endblock %}
                                     </div>
                                 {% endblock %}
-                                
+
                                 {% block pre_primary %}{% endblock %}
 
-                                <div id="content" class="col-md-9">
-                                    {% block primary %}
-                                        {% block primary_content %}
-                                            {% block page_header %}
-                                              <header class="module-content">
-                                                {% if self.content_action() | trim %}
-                                                  <div class="content_action" style="margin: -20px 0 10px 0;">
-                                                    {% block content_action %}{% endblock %}
-                                                  </div>
+                                    <div id="content" class="col-md-9 col-sm-9">
+                                        {% block primary %}
+                                            {% block primary_content %}
+                                                {% block page_header %}
+                                                    <header class="module-content">
+                                                    {% if self.content_action() | trim %}
+                                                        <div class="content_action" style="margin: -20px 0 10px 0;">
+                                                        {% block content_action %}{% endblock %}
+                                                        </div>
+                                                    {% endif %}
+                                                    <ul class="nav nav-tabs">
+                                                        {% block content_primary_nav %}{% endblock %}                                                  
+                                                    </ul>
+                                                    </header>
+                                                {% endblock %}
+                                                {% if self.page_primary_action() | trim %}
+                                                    <div class="page_primary_action">
+                                                        {% block page_primary_action %}{% endblock %}
+                                                        </div>
                                                 {% endif %}
-                                                <ul class="nav nav-tabs">
-                                                  {% block content_primary_nav %}{% endblock %}                                                  
-                                                </ul>
-                                              </header>
+                                                {% block primary_content_inner %}{% endblock %}
                                             {% endblock %}
-                                            {% if self.page_primary_action() | trim %}
-                                                <div class="page_primary_action">
-                                                 {% block page_primary_action %}{% endblock %}
-                                                 </div>
-                                            {% endif %}
-                                            {% block primary_content_inner %}{% endblock %}
                                         {% endblock %}
-                                    {% endblock %}
-                                </div>
+                                    </div>
+        
                             </div>
                         </div>
                     </div>

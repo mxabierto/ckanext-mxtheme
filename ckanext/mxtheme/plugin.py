@@ -168,12 +168,14 @@ def slugify_name(text):
 
 
 def get_adela_endpoint():
-    #adela_endpoint = config.get(
-        # 'mxtheme.adela_api_endopint', 'http://adela.datos.gob.mx/api/v1/distributions'
-    #    'mxtheme.adela_api_endopint', 'https://adela.datos.gob.mx/adela/api/v1/distributions'
-    #)
-    adela_endpoint = os.environ.get("ADELA_ENDPOINT", "https://adela.datos.gob.mx/adela/api/v1/distributions")
+    adela_endpoint = os.environ.get("ADELA_ENDPOINT", "http://10.20.55.7/adela/api/v1/distributions")
     return adela_endpoint
+
+
+def get_grafica_base_url():
+    url_grafica_base = os.environ.get("GRAFICA_BASE_URL", "https://cdn.datos.gob.mx/assets/css/main.css")
+    return url_grafica_base
+
 
 def sorted_extras_dgm(extras):
     sorted_list = sorted_extras(extras)
@@ -190,7 +192,7 @@ def sorted_extras_dgm(extras):
     if initial_peroid is not None and final_period is not None:
         sorted_list.remove(final_period)
         sorted_list.insert(sorted_list.index(initial_peroid) + 1, final_period)
-    
+
     return sorted_list
 
 
@@ -228,5 +230,6 @@ class MxthemePlugin(plugins.SingletonPlugin):
             '_add_i18n_to_url': _add_i18n_to_url,
             'slugify_text': slugify_name,
             'get_adela_endpoint': get_adela_endpoint,
-            'sorted_extras_dgm': sorted_extras_dgm
+            'sorted_extras_dgm': sorted_extras_dgm,
+            'get_grafica_base_url': get_grafica_base_url
         }

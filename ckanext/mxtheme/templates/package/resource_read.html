@@ -1,6 +1,12 @@
 {% extends "package/base.html" %}
 
 {% set res = c.resource %}
+{% block custom_styles %}
+  {{ super() }}
+  <style type="text/css">
+    .breadcrumb>li:last-child>a { pointer-events: all !important; }
+  </style>
+{% endblock %}
 
 {% block head_extras -%}
   {{ super() }}
@@ -113,32 +119,66 @@
        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
             <script type="text/javascript">
               $(document).ready(function(){
+                // hide elements
                 // Inyeccion de metadatos Adela (TEMPORALMENTE)
                  var xhr;
                  if (window.XMLHttpRequest) xhr = new XMLHttpRequest();
                  else xhr = new ActiveXObject("Microsoft.XMLHTTP");
-  
+
                  xhr.open('GET', '{{h.get_adela_endpoint()}}/{{h.slugify_text(h.resource_display_name(res))}}', false);
                  xhr.onreadystatechange = function () {
                      if (xhr.readyState===4 && xhr.status===200) {
                         var items = JSON.parse(xhr.responseText).distribution;
-  
-                        if(items.dataset !== null){
-                          document.getElementById('accrualPeriodicity').innerHTML = (items.dataset.accrualPeriodicity !== null || items.dataset.accrualPeriodicity !== undefined ? items.dataset.accrualPeriodicity : '');
-                        } else {
-                          document.getElementById('accrualPeriodicity').innerHTML = '';
+                        if(items.dataset){
+                          document.getElementById('accrualPeriodicity').innerHTML = items.dataset.accrualPeriodicity;
+                          $(".accrualPeriodicity").show();
+                          $("#th_accrualPeriodicity").show();
                         }
-  
-                        document.getElementById('temporal').innerHTML = (items.temporal !== null || items.temporal !== undefined ? items.temporal : '');
-                        document.getElementById('codelist').innerHTML = (items.codelist !== null || items.codelist !== undefined ? items.codelist : '');
-                        document.getElementById('codelist_link').innerHTML = (items.codelistLink !== null || items.codelistLink !== undefined ? items.codelistLink : '');
-                        document.getElementById('visualization').innerHTML = (items.tools !== null || items.tools !== undefined ? items.tools : '');
-                        document.getElementById('spatial').innerHTML = (items.spatial !== null || items.spatial !== undefined ? items.spatial : '');
-                        document.getElementById('copyright').innerHTML = (items.copyright !== null || items.copyright !== undefined ? items.copyright : '');
-                        document.getElementById('adela_modified').innerHTML = (items.modified !== null || items.modified !== undefined ? items.modified : '');
-                        document.getElementById('adela_created').innerHTML = (items.createdAt !== null || items.createdAt !== undefined ? items.createdAt : '');
+                        if(items.temporal){
+                          document.getElementById('temporal').innerHTML = items.temporal;
+                          $(".temporal").show();
+                          $("#th_temporal").show();
+                        }
+                        if(items.codelist){
+                          document.getElementById('codelist').innerHTML = items.codelist;
+                          $(".codelist").show();
+                          $("#th_codelist").show();
+                        }
+                        if(items.codelist_link){
+                          document.getElementById('codelist_link').innerHTML = items.codelist_link;
+                          $(".codelist_link").show();
+                          $("#th_codelist_link").show();
+                        }
+                        if(items.visualization){
+                          document.getElementById('visualization').innerHTML = items.visualization;
+                          $(".visualization").show();
+                          $("#th_visualization").show();
+                        }
+                        if(items.spatial){
+                          document.getElementById('spatial').innerHTML = items.spatial;
+                          $(".spatial").show();
+                          $("#th_spatial").show();
+                        }
+                        if(items.copyright){
+                          document.getElementById('copyright').innerHTML = items.copyright;
+                          $(".copyright").show();
+                          $("#th_copyright").show();
+                        }
+                        if(items.adela_created){
+                          document.getElementById('adela_created').innerHTML = items.adela_created;
+                          $(".adela_created").show();
+                          $("#th_adela_created").show();
+                        }
+                        if(items.adela_modified){
+                          document.getElementById('adela_modified').innerHTML = items.adela_modified;
+                          $(".adela_modified").show();
+                          $("#th_adela_modified").show();
+                        }
                      }
                  }
+
+                $(".toggle-show-more").remove();
+                $(".toggle-seperator").remove();
 
                  xhr.send();
               });
@@ -199,30 +239,20 @@
                                     <td>{% snippet "snippets/license.html", pkg_dict=pkg, text_only=True %}</td>
                                   </tr>
                                   {% for key, value in h.format_resource_items(res.items()) %}
-                                    {% if key != 'format' and key != 'created' and key != 'size' %}
+                                    {% if key != 'format' and key != 'size' and key != 'package id' and key != 'revision id' and key != 'id' and key != 'Creado' and key != 'resource group id' %}
                                       <tr class="toggle-more">
                                         {# Esto no va a ser necesario cuando tengamos el idioma actualizado #}
                                         <th scope="row">
-                                          {% if key == 'package id' %}
-                                          Id del Paquete
-                                          {% elif key == 'position' %}
+                                          {% if key == 'position' %}
                                           Posici&oacute;n
-                                          {% elif key == 'revision id' %}
-                                          Id de Revisi&oacute;n
                                           {% elif key == 'state' %}
                                           Estado
                                           {% elif key == 'has views' %}
                                           Visitas
-                                          {% elif key == 'id' %}
-                                          ID
                                           {% elif key == 'datastore active' %}
                                           DataStore Activo
-                                          {% elif key == 'last modified' %}
-                                          Ultima Modificación
-                                          {% elif key == 'resource group id' %}
-                                          Id del Grupo de Recursos
                                           {% else %}
-                                            {{ _(key) }}
+                                          {{ _(key) }}
                                           {% endif %}
                                         </th>
                                         <td>
@@ -233,46 +263,67 @@
                                           {% else %}
                                             {{ _(value) }}
                                           {% endif %}
-                                          </td>
+                                        </td>
                                       </tr>
                                     {% endif %}
-                                    {% endfor %}
-                                  <tr>
-                                      <th scope="row">{{ _('Fecha de última modificación de datos') }}</th>
-                                    <td id="adela_modified"></td>
+                                  {% endfor %}
+                                  <tr class="adela_modified" style="display: none;">
+                                      <th id="th_adela_modified" scope="row">{{ _('Fecha de última modificación de datos') }}</th>
+                                      <td id="adela_modified"></td>
                                   </tr>
-                                  <tr>
-                                      <th scope="row">{{ _('Fecha de creación') }}</th>
+                                  <tr class="adela_created" style="display: none;">
+                                      <th id="th_adela_created" scope="row">{{ _('Fecha de creación') }}</th>
                                     <td id="adela_created"></td>
                                   </tr>
-                                  <tr>
-                                    <th scope="row">{{ _('Periodo de actualización') }}</th>
+                                  <tr class="accrualPeriodicity" style="display: none;">
+                                    <th id="th_accrualPeriodicity" scope="row">{{ _('Periodo de actualización') }}</th>
                                     <td id="accrualPeriodicity"></td>
                                   </tr>
-                                  <tr>
-                                    <th scope="row">{{ _('Periodo cubierto por los datos') }}</th>
+                                  <tr class="temporal" style="display: none;">
+                                    <th id="th_temporal" scope="row">{{ _('Periodo cubierto por los datos') }}</th>
                                     <td id="temporal"></td>
                                   </tr>
-                                  <tr>
-                                    <th scope="row">{{ _('Codelist') }}</th>
+                                  <tr class="codelist" style="display: none;">
+                                    <th id="th_codelist" scope="row">{{ _('Codelist') }}</th>
                                     <td id="codelist"></td>
                                   </tr>
-                                  <tr>
-                                    <th scope="row">{{ _('Codelist Link') }}</th>
+                                  <tr class="codelist_link" style="display: none;">
+                                    <th id="th_codelist_link" scope="row">{{ _('Codelist Link') }}</th>
                                     <td id="codelist_link"></td>
                                   </tr>
-                                  <tr>
-                                    <th scope="row">{{ _('Herramienta de visualización') }}</th>
+                                  <tr class="visualization" style="display: none;">
+                                    <th id="th_visualization" scope="row">{{ _('Herramienta de visualización') }}</th>
                                     <td id="visualization"></td>
                                   </tr>
-                                  <tr>
-                                    <th scope="row">{{ _('Copyright') }}</th>
+                                  <tr class="copyright" style="display: none;">
+                                    <th id="th_copyright" scope="row">{{ _('Copyright') }}</th>
                                     <td id="copyright"></td>
                                   </tr>
-                                  <tr>
-                                    <th scope="row">{{ _('Espacio geográfico') }}</th>
+                                  <tr class="spatial" style="display: none;">
+                                    <th id="th_spatial" scope="row">{{ _('Espacio geográfico') }}</th>
                                     <td id="spatial"></td>
                                   </tr>
+                                  {% for key, value in h.format_resource_items(res.items()) %}
+                                    {% if key == 'package id' or key == 'revision id' or key == 'id' or key == 'resource group id' %}
+                                      <tr class="toggle-more">
+                                        {# Esto no va a ser necesario cuando tengamos el idioma actualizado #}
+                                        <th scope="row">
+                                          {% if key == 'package id' %}
+                                          Id del Paquete
+                                          {% elif key == 'revision id' %}
+                                          Id de Revisi&oacute;n
+                                          {% elif key == 'id' %}
+                                          Id
+                                          {% elif key == 'resource group id' %}
+                                          Id del Grupo de Recursos
+                                          {% endif %}
+                                        </th>
+                                        <td>
+                                          {{ _(value) }}
+                                        </td>
+                                      </tr>
+                                    {% endif %}
+                                  {% endfor %}
                                 </tbody>
                               </table>
                             </div>

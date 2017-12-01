@@ -55,7 +55,7 @@
     #}
 
     {% block links %}
-      <link rel="shortcut icon" href="{{ g.favicon }}" />
+      <link rel="shortcut icon" href="https://datos.gob.mx/img/favicon.ico" />
       {#<link rel="stylesheet" type="text/css" href="">   #}
       <link rel="import" href="https://cdn.datos.gob.mx/bower_components/polymer/polymer.html">
       <link rel="import" href="https://cdn.datos.gob.mx/bower_components/dgm-navbar/dgm-navbar.html">
@@ -76,12 +76,9 @@
     #}
     {% block styles %}
 
-        {#
-        <link rel="stylesheet" href="{{h.url_for('/fantastic/mxtheme/mx.css')}}" />
-        {% resource 'mxtheme/font-awesome.css' %}
-        #}
+        <link rel="stylesheet" type="text/css" href="{{h.get_grafica_base_url()}}">
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         {% resource 'mxtheme/mx.css' %}
-        <link rel="stylesheet" type="text/css" href="https://cdn.datos.gob.mx/qa/bower_components/dgm-style/reset-footer.css">
 
     {% endblock %}
 
@@ -154,7 +151,7 @@
   </head>
 
   {# Allows custom attributes to be added to the <body> tag #}
-  <body{% block bodytag %} data-site-root="{{ h.url_for('/', locale='default', qualified=true) }}" data-locale-root="{{ h.url_for('/', qualified=true) }}" {% endblock %}>
+  <body {% block bodytag %} data-site-root="{{ h.url_for('/', locale='default', qualified=true) }}" data-locale-root="{{ h.url_for('/', qualified=true) }}" {% endblock %}>
 
     {#
     The page block allows you to add content to the page. Most of the time it is
@@ -180,7 +177,7 @@
       {% resource 'mxtheme/popper.js' %}
       {% resource 'mxtheme/bootstrap.js' %}
       {% resource 'mxtheme/mx.js' %}
-      
+
       {% block extra_js %}
       {% resource 'mxtheme/webcomponents-lite.js' %}
       {% endblock %}

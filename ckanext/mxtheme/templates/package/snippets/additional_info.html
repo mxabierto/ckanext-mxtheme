@@ -68,7 +68,7 @@
         {% for extra in h.sorted_extras_dgm(pkg_dict.extras) %}
           {% set key, value = extra %}
           {#{% if key != 'Final del periodo temporal' and key != 'Inicio del periodo temporal'%}#}
-          <tr rel="dc:relation" resource="_:extra{{ i }}">
+          <tr rel="dc:relation" resource="_:extra{{ i }}" style="{% if not value %}display: none;{% endif %}">
             <td scope="row" class="dataset-label" property="rdfs:label">
               {% if key == 'dataDictionary' %}
                 Diccionario de Datos

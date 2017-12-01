@@ -4,6 +4,6 @@ $(document).ready(function(){
       $('.counter-datos-ds').html(data.pagination.total.toLocaleString());
     })
     .fail(function(err){
-      console.log(err);
+      console.log('count error', err);
     });
   });

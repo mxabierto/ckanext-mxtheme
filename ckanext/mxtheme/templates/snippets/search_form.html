@@ -7,7 +7,7 @@
 
 <form class="search-form form-inline {% if no_bottom_border %} no-bottom-border{% endif %}" method="get" data-module="select-switch">
   {% block search_input %}
-    <div class="search-input control-group col-md-12 form-group search-keyword">
+    <div class="search-input control-group col-md-12 col-sm-12 form-group search-keyword">
       <input type="text" class="form-control block" name="q" value="{{ query }}" autocomplete="off" placeholder="{{ placeholder }}">
        <button type="submit" value="search" style="cursor: pointer; display: block; position: absolute; top: 35%; margin-top: 0px;
 right: 10px; height: 20px; padding: 0; border: none; background: transparent;">
@@ -18,7 +18,7 @@ right: 10px; height: 20px; padding: 0; border: none; background: transparent;">
 
   {% block search_title %}
     {% if not no_title %}
-      <div class="col-md-7">
+      <div class="col-md-7 col-sm-7 results-home">
         <p>{% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}</p>
       </div>
     {% endif %}
@@ -32,7 +32,7 @@ right: 10px; height: 20px; padding: 0; border: none; background: transparent;">
 
   {% block search_sortby %}
     {% if sorting %}
-      <div class="col-md-5 form-group">
+      <div class="col-md-5 col-sm-5 form-group">
           <div class="pull-right">
               <label for="order">{{ _('Order by') }}</label>
               <div class="custom-select">
@@ -54,7 +54,7 @@ right: 10px; height: 20px; padding: 0; border: none; background: transparent;">
 
 </form>
 <!-- facets -->
-<div class="col-md-12">
+<div class="col-md-12 col-sm-12">
   {% block search_facets %}
     {% if facets %}
       <p class="filters-list">

@@ -1,262 +1,3 @@
-/*!
- * Bootstrap v3.3.6 (http://getbootstrap.com)
- * Copyright 2011-2015 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- */
-/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
-html {
-  font-family: sans-serif;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-}
-body {
-  margin: 0;
-}
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-main,
-menu,
-nav,
-section,
-summary {
-  display: block;
-}
-audio,
-canvas,
-progress,
-video {
-  display: inline-block;
-  vertical-align: baseline;
-}
-audio:not([controls]) {
-  display: none;
-  height: 0;
-}
-[hidden],
-template {
-  display: none;
-}
-a {
-  background-color: transparent;
-}
-a:active,
-a:hover {
-  outline: 0;
-}
-abbr[title] {
-  border-bottom: 1px dotted;
-}
-b,
-strong {
-  font-weight: bold;
-}
-dfn {
-  font-style: italic;
-}
-h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
-}
-mark {
-  background: #ff0;
-  color: #000;
-}
-small {
-  font-size: 80%;
-}
-sub,
-sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-sup {
-  top: -0.5em;
-}
-sub {
-  bottom: -0.25em;
-}
-img {
-  border: 0;
-}
-svg:not(:root) {
-  overflow: hidden;
-}
-figure {
-  margin: 1em 40px;
-}
-hr {
-  -webkit-box-sizing: content-box;
-          box-sizing: content-box;
-  height: 0;
-}
-pre {
-  overflow: auto;
-}
-code,
-kbd,
-pre,
-samp {
-  font-family: monospace, monospace;
-  font-size: 1em;
-}
-button,
-input,
-optgroup,
-select,
-textarea {
-  color: inherit;
-  font: inherit;
-  margin: 0;
-}
-button {
-  overflow: visible;
-}
-button,
-select {
-  text-transform: none;
-}
-button,
-html input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-  -webkit-appearance: button;
-  cursor: pointer;
-}
-button[disabled],
-html input[disabled] {
-  cursor: default;
-}
-button::-moz-focus-inner,
-input::-moz-focus-inner {
-  border: 0;
-  padding: 0;
-}
-input {
-  line-height: normal;
-}
-input[type="checkbox"],
-input[type="radio"] {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 0;
-}
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  height: auto;
-}
-input[type="search"] {
-  -webkit-appearance: textfield;
-  -webkit-box-sizing: content-box;
-          box-sizing: content-box;
-}
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-fieldset {
-  border: 1px solid #c0c0c0;
-  margin: 0 2px;
-  padding: 0.35em 0.625em 0.75em;
-}
-legend {
-  border: 0;
-  padding: 0;
-}
-textarea {
-  overflow: auto;
-}
-optgroup {
-  font-weight: bold;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-td,
-th {
-  padding: 0;
-}
-/*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
-@media print {
-  *,
-  *:before,
-  *:after {
-    background: transparent !important;
-    color: #000 !important;
-    -webkit-box-shadow: none !important;
-            box-shadow: none !important;
-    text-shadow: none !important;
-  }
-  a,
-  a:visited {
-    text-decoration: underline;
-  }
-  a[href]:after {
-    content: " (" attr(href) ")";
-  }
-  abbr[title]:after {
-    content: " (" attr(title) ")";
-  }
-  a[href^="#"]:after,
-  a[href^="javascript:"]:after {
-    content: "";
-  }
-  pre,
-  blockquote {
-    border: 1px solid #999;
-    page-break-inside: avoid;
-  }
-  thead {
-    display: table-header-group;
-  }
-  tr,
-  img {
-    page-break-inside: avoid;
-  }
-  img {
-    max-width: 100% !important;
-  }
-  p,
-  h2,
-  h3 {
-    orphans: 3;
-    widows: 3;
-  }
-  h2,
-  h3 {
-    page-break-after: avoid;
-  }
-  .navbar {
-    display: none;
-  }
-  .btn > .caret,
-  .dropup > .btn > .caret {
-    border-top-color: #000 !important;
-  }
-  .label {
-    border: 1px solid #000;
-  }
-  .table {
-    border-collapse: collapse !important;
-  }
-  .table td,
-  .table th {
-    background-color: #fff !important;
-  }
-  .table-bordered th,
-  .table-bordered td {
-    border: 1px solid #ddd !important;
-  }
-}
 @font-face {
   font-family: 'Glyphicons Halflings';
   src: url('https://cdn.datos.gob.mx/bower_components/bootstrap/fonts/glyphicons-halflings-regular.eot');
@@ -1079,6 +820,7 @@ body {
   line-height: 1.42857143;
   color: #333333;
   background-color: #fff;
+  margin: 0 0 300px !important;
 }
 input,
 button,
@@ -6476,6 +6218,7 @@ button.close {
 }
 .pull-right {
   float: right !important;
+  margin-top: 10px;
 }
 .pull-left {
   float: left !important;
@@ -6821,13 +6564,15 @@ li > a:hover {
 #sidebar ul > li > a {
   font-size: 12px;
   font-weight: 400;
-  line-height: 35px;
+  line-height: 20px;
   color: #696969;
 }
-#sidebar ul > li.active > a,
-#sidebar ul > li > a:hover {
+
+/*#sidebar ul > li > a:hover {*/
+#sidebar ul > li.active > a{
   color: #0c9;
 }
+
 #search-form .search-keyword .glyphicon {
   font-size: 16px;
   color: #d8d8d8;
@@ -6856,7 +6601,9 @@ li > a:hover {
 .dataset-item .dataset-date {
   font-size: 11px;
   font-weight: 300;
-  color: #9b9b9b;
+  color: red;
+  margin-bottom: 15px;
+  margin-top: 10px;
 }
 .dataset-item .dataset-date > span > strong {
   font-weight: 300;
@@ -6866,10 +6613,31 @@ li > a:hover {
   font-size: 15px;
   font-weight: 600;
   color: #474747;
+  overflow: hidden;
 }
 .dataset-item h3 > a {
+  display: inline-block;
   color: #474747;
+  font-size: 15px;
+  font-weight: 600;
+  position: relative;
+  float: left;
+  margin-top: -34px;
 }
+
+@media screen and (max-width: 675px) {
+  .dataset-item h3 > a {
+    margin-top: -30px;
+    padding-left: 40px;
+  }
+}
+@media screen and (min-width: 676px) {
+  .dataset-item h3 > a {
+    margin-top: 0;
+    padding-left: 10px;
+  }
+}
+
 .dataset-item h3 > a:hover {
   font-weight: 700;
 }
@@ -7027,6 +6795,8 @@ dgm-footer {
 #search-form input[type="text"] {
   height: 45px;
   padding-right: 30px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 #search-form .search-keyword {
   position: relative;
@@ -7248,7 +7018,7 @@ h1:after {
 .dataset-item,
 .result-item {
   margin-bottom: 20px;
-  padding: 15px 10px;
+  padding:10px;
   background-color: #f9f9f9;
   border: 1px solid #f6f6f6;
   border-radius: 5px;
@@ -7274,9 +7044,14 @@ h1:after {
   left: 0;
 }
 .dataset-item h3,
-.dataset-item p.dependency {
-  margin-bottom: 20px;
+.dataset-item .dependency {
+  margin-top: 10px;
 }
+
+.dependency {
+  text-transform: uppercase;
+}
+
 .dataset-item h4 {
   margin-top: 0;
   margin-bottom: 10px;
@@ -7308,6 +7083,10 @@ h1:after {
 .tags-list > li > a {
   display: block;
 }
+.dataset-format-container{
+  margin-top: 20px;
+}
+
 .dataset-format {
   font-size: 10px;
   font-weight: 700;
@@ -7386,7 +7165,9 @@ h1:after {
   background-position: 50%;
   background-size: 50%;
   border-radius: 15px;
+  float: left;
 }
+
 .tag-icon.tag-cultura-y-turismo {
   background-image: url(https://cdn.datos.gob.mx/ckan/img/ic-cultura-y-turismo.3d691d9c.png);
 }
@@ -7548,11 +7329,11 @@ h1:after {
 }
 
 .js-hide {
-  display: none;
+  display: none !important;
 }
 
 .js .js-hide.active {
-  display: block;
+  display: block !important;
 }
 
 .tooltip2 {
@@ -7570,7 +7351,7 @@ h1:after {
     text-align: center;
     padding: 5px 0;
     border-radius: 6px;
- 
+
     /* Position the tooltip text - see examples below! */
     position: absolute;
     z-index: 1;
@@ -7594,3 +7375,13 @@ h1:after {
 .submenu.recortado li {
   margin-right: 12px !important;
 }
+
+.results-home, .counter-datos-ds { margin-top: 10px;}
+.custom-select { width: 66% !important; }
+.pagination-centered { display: block !important; margin: 0px !important; height: 75px;}
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: FontAwesome !important;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus { background: none !important; }
+.nav-tabs>li>a { background: none !important; }

@@ -15,18 +15,22 @@
 
 {% block content_action %}
   <a href="https://datos.gob.mx/reportar/?media_url={{g.site_url}}{{ h.url_for(controller='package', action='read', id=pkg.name) }}" class="btn btn-danger" style="float: right; padding-right: 12px !important;">Reportar</a>
-  {% if h.check_access('package_update', {'id':pkg.id }) %}
+  {% if h.check_access('package_update', {'id': pkg.id }) %}
     {% link_for _('Manage'), controller='package', action='edit', id=pkg.name, class_='btn btn-primary', icon='wrench' %}
   {% endif %}
 {% endblock %}
 
 {% block extra_js %}
+  {% set pkg = c.pkg_dict %}
+  {% if h.check_access('package_update', {'id': pkg.id }) %}
   <script type="text/javascript">
     function registerDownload(event){
       ga('send', { 'hitType': 'pageview', 'page': '/busca/organization/{{h.slugify_text(pkg.organization.name)}}/dataset/{{h.slugify_text(pkg.name)}}/resource/'+ $(event).attr('data-slug') + '/download', 'title': 'Download: ' + $(event).attr('data-name') });
       return true;
     }
   </script>
+  {% endif %}
+    
 {% endblock %}
 
 
