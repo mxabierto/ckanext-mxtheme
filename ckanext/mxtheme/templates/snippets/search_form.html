@@ -18,7 +18,7 @@ right: 10px; height: 20px; padding: 0; border: none; background: transparent;">
 
   {% block search_title %}
     {% if not no_title %}
-      <div class="col-md-7 col-sm-7">
+      <div class="col-md-7 col-sm-7 results-home">
         <p>{% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}</p>
       </div>
     {% endif %}

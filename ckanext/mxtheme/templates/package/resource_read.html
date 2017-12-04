@@ -1,6 +1,12 @@
 {% extends "package/base.html" %}
 
 {% set res = c.resource %}
+{% block custom_styles %}
+  {{ super() }}
+  <style type="text/css">
+    .breadcrumb>li:last-child>a { pointer-events: all !important; }
+  </style>
+{% endblock %}
 
 {% block head_extras -%}
   {{ super() }}
