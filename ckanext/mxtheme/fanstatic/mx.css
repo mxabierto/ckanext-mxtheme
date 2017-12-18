@@ -7047,6 +7047,7 @@ h1:after {
 .dataset-item h3,
 .dataset-item .dependency {
   margin-top: 10px;
+  width: fit-content;
 }
 
 .dependency {
