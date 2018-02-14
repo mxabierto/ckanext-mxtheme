@@ -56,7 +56,7 @@ Example:
         {% if package.organization %}
           <div class="dependency">
             <strong>
-              <a href="{{h.url_for(package.organization.type ~ '_read', action='read', id=package.organization.name)}}">{{package.organization.name}}
+              <a href="{{h.url_for(package.organization.type ~ '_read', action='read', id=package.organization.title)}}">{{package.organization.title}}
               </a>
             </strong>
             <!-- {% if package.organization.description != '' and package.organization.description != None %}
