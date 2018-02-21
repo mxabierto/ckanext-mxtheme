@@ -73,15 +73,15 @@
 
 {% block secondary_content %}
   <h3>Filtrar por</h3>
-  {% for facet in c.facet_titles %}
-    {% if c.facet_titles[facet] != 'Licencias'%}
-      {% if c.facet_titles[facet] == 'Categorias' %}
-        {{ h.snippet('snippets/facet_list.html', title='Categorías', name=facet) }}      
-      {% else %}
-        {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet) }}
-      {% endif %}
-    {% endif %}
-  {% endfor %}
+
+  {{ h.snippet('snippets/facet_list.html', title='Categorias', name='theme') }}
+  {{ h.snippet('snippets/facet_list.html', title='Nivel de Gobierno', name='vocab_gov_types') }}
+  {{ h.snippet('snippets/facet_list.html', title='Organizaciones', name='organization') }}
+  {{ h.snippet('snippets/facet_list.html', title='Grupos', name='groups') }}
+  {{ h.snippet('snippets/facet_list.html', title='Etiquetas', name='tags') }}
+  {{ h.snippet('snippets/facet_list.html', title='Formatos', name='res_format') }}
+  {{ h.snippet('snippets/facet_list.html', title='Categorias', name='theme') }}
+
   <a href="http://datamx.io" class="module-heading list-group-item ckan-group-item ckan-header-group">
     Datos Ciudadanos | datamx.io
   </a>
