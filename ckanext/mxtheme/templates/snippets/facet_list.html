@@ -38,78 +38,66 @@ within_tertiary
 
 #}
 {% block facet_list %}
-{% set hide_empty = hide_empty or false %}
-{% with items = items or h.get_facet_items_dict(name) %}
-  {% if items or not hide_empty %}
-    {% if within_tertiary %}
-      {% set nav_class = 'nav nav-pills nav-stacked' %}
-      {% set nav_item_class = ' ' %}
-      {% set wrapper_class = 'nav-facet nav-facet-tertiary' %}
-    {% endif %}
-    {% block facet_list_item %}
-      <!-- Open Facets -->
-        {% block facet_list_heading %}
-          {% set title = title or h.get_facet_title(name) %}
-          <a href="#item-{{ h.slugify_text(h.get_facet_title(name)) }}" class="module-heading list-group-item ckan-group-item ckan-header-group" data-toggle="collapse">
-            {{ title }}
-              <i class="glyphicon glyphicon-chevron-down" style="float: right"></i>
-          </a>
-        {% endblock %}
-        {% block facet_list_items %}
-          {% with items = items or h.get_facet_items_dict(name) %}
-          {% if items %}
-
-              <div class="list-group collapse" id="item-{{h.slugify_text(h.get_facet_title(name))}}">
-              <ul class="filters-menu">
-                {% for item in items %}
-                  {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
-                  {% set label = label_function(item) if label_function else item.display_name %}
-                  {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
+  {% set hide_empty = hide_empty or false %}
+ 
+  {% with items = items or h.get_facet_items_dict(name) %}
+    {% if items or not hide_empty %}
+      {% if within_tertiary %}
+        {% set nav_class = 'nav nav-pills nav-stacked' %}
+        {% set nav_item_class = ' ' %}
+        {% set wrapper_class = 'nav-facet nav-facet-tertiary' %}
+      {% endif %}
+ 
+      {% block facet_list_item %}
+        <!-- Open Facets -->
+          {% block facet_list_heading %}
+            {% set title = title or h.get_facet_title(name) %}
+            <a href="#item-{{ h.slugify_text(title) }}" class="module-heading list-group-item ckan-group-item ckan-header-group" data-toggle="collapse">
+              {{ title }}
+                <i class="glyphicon glyphicon-chevron-down" style="float: right"></i>
+            </a>
+          {% endblock %}
+          {% block facet_list_items %}
+            {% with items = items or h.get_facet_items_dict(name) %}
+              {% if items %}
+                <div class="list-group collapse" id="item-{{h.slugify_text(title)}}">
+                <ul class="filters-menu">
+                  {% for item in items %}
+                      {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
+                      {% set label = label_function(item) if label_function else item.display_name %}
+                      {% set label_truncated = h.truncate(label, 22) if not label_function else label %}
+                      {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
                       <li class="{% if item.active %} active{% endif %} list-group-item ckan-group-item">
                         <a href="{{ href }}" title="{{ label if label != label else '' }}">
                           {{ label }} {{ count }}
                         </a>
                       </li>
-                {% endfor %}
+                  {% endfor %}
 
-                {% if h.get_param_int('_%s_limit' % name) %}
-                  {% if h.has_more_facets(name) %}
+                  {% if h.get_param_int('_%s_limit' % name) %}
+                    {% if h.has_more_facets(name) %}
+                      <li class="list-group-item ckan-group-item">
+                        <a href="{{ h.remove_url_param('_%s_limit' % name, replace=0, extras=extras, alternative_url=alternative_url) }}" class="read-more"><strong>{{ _('Show More {facet_type}').format(facet_type=title) }}</strong></a>
+                      </li>
+                    {% endif %}
+                  {% else %}
                     <li class="list-group-item ckan-group-item">
-                      <a href="{{ h.remove_url_param('_%s_limit' % name, replace=0, extras=extras, alternative_url=alternative_url) }}" class="read-more"><strong>{{ _('Show More {facet_type}').format(facet_type=title) }}</strong></a>
+                      <a href="{{ h.remove_url_param('_%s_limit' % name, extras=extras, alternative_url=alternative_url) }}" class="read-more">{{ _('Show Only Popular {facet_type}').format(facet_type=title) }}</a>
                     </li>
                   {% endif %}
-                {% else %}
-                  <li class="list-group-item ckan-group-item">
-                    <a href="{{ h.remove_url_param('_%s_limit' % name, extras=extras, alternative_url=alternative_url) }}" class="read-more">{{ _('Show Only Popular {facet_type}').format(facet_type=title) }}</a>
-                  </li>
-                {% endif %}
-              </ul>
-              </div>
-
-          {#
-            <p class="module-footer">
-              {% if h.get_param_int('_%s_limit' % name) %}
-                {% if h.has_more_facets(name) %}
-                  <a href="{{ h.remove_url_param('_%s_limit' % name, replace=0, extras=extras, alternative_url=alternative_url) }}" class="read-more"><strong>{{ _('Show More {facet_type}').format(facet_type=title) }}</strong></a>
-                {% endif %}
+                </ul>
+                </div>
               {% else %}
-                <a href="{{ h.remove_url_param('_%s_limit' % name, extras=extras, alternative_url=alternative_url) }}" class="read-more">{{ _('Show Only Popular {facet_type}').format(facet_type=title) }}</a>
+                <div class="list-group collapse" id="item-{{h.slugify_text(title)}}">
+                  <ul class="filters-menu">
+                    <li class="list-group-item ckan-group-item">{{ _('There are no {facet_type} that match this search').format(facet_type=title) }}</li>
+                  </ul>
+                </div>
               {% endif %}
-            </p>
-          {% else %}
-            <p class="module-content empty">{{ _('There are no {facet_type} that match this search').format(facet_type=title) }}</p>
-            #}
-          {% else %}
-            <div class="list-group collapse" id="item-{{h.slugify_text(h.get_facet_title(name))}}">
-              <ul class="filters-menu">
-                <li class="list-group-item ckan-group-item">{{ _('There are no {facet_type} that match this search').format(facet_type=title) }}</li>
-              </ul>
-            </div>
-          {% endif %}
           {% endwith %}
-        {% endblock %}
+          {% endblock %}
 
-    {% endblock %}
-  {% endif %}
-{% endwith %}
+      {% endblock %}
+    {% endif %}
+  {% endwith %}
 {% endblock %}
