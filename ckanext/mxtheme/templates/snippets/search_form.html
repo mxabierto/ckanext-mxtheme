@@ -19,7 +19,7 @@ right: 10px; height: 20px; padding: 0; border: none; background: transparent;">
   {% block search_title %}
     {% if not no_title %}
       <div class="col-md-7 col-sm-7 results-home">
-        <p>{% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}</p>
+        <p>{% snippet 'snippets/my_search_result_text.html', query=query, count=count, type=type total=h.get_total_datasets() %}</p>
         <em>datos.gob.mx es el catálogo de Datos Abiertos del Gobierno de la República. El contenido y disponibilidad de los datos son responsabilidad de la institución publicante</em>
       </div>
     {% endif %}

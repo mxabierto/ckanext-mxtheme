@@ -1,0 +1,51 @@
+{#
+
+Displays a test for results of a search.
+
+query        - The text that was searched for
+count        - The number of results for the search
+type         - Search result type (dataset, group, organization)
+total        - Total of datasets in CKAN
+
+Example:
+
+{% snippet 'snippets/search_result_text.html', query=query, count=count, type='dataset' %}
+
+#}
+
+{% if type == 'dataset' %}
+  {% set text_query = ungettext('{number} Dato en datos.gob.mx para "{query}"', '{number} Datos en datos.gob.mx para "{query}"', count) %}
+  {% set text_query_none = 'No existen datos en datos.gob.mx para "{query}"' %}
+  {% set text_no_query_none = 'No existen datos en datos.gob.mx' %}
+  {%if count == total %}
+    {% set text_no_query = 'Datos en datos.gob.mx' %}
+  {% else %}
+    {% set text_no_query = ungettext('{number} Dato en datos.gob.mx', '{number} Datos en datos.gob.mx', count) %}
+  {%- endif -%}
+
+{% elif type == 'group' %}
+  {% set text_query = ungettext('{number} Grupo encontrado para "{query}"', '{number} Grupos encontrados para "{query}"', count) %}
+  {% set text_query_none = 'No se encontraron grupos para "{query}"' %}
+  {% set text_no_query = ungettext('{number} grupo encontrado', '{number} grupos encontrados', count) %}
+  {% set text_no_query_none = 'No existen grupos' %}
+
+{% elif type == 'organization' %}
+  {% set text_query = ungettext('{number} Institución encontrada para "{query}"', '{number} Instituciones encontradas para "{query}"', count) %}
+  {% set text_query_none = 'No se encontraron instituciones para "{query}"' %}
+  {% set text_no_query = ungettext('{number} institución encontrada', '{number} instituciones encontradas', count) %}
+  {% set text_no_query_none = 'No existen instituciones' %}
+{%- endif -%}
+
+{% if query %}
+  {%- if count -%}
+    {{ text_query.format(number=h.localised_number(count), query=query) }}
+  {%- else -%}
+    {{ text_query_none.format(query=query) }}
+  {%- endif -%}
+{%- else -%}
+  {%- if count -%}
+    {{ text_no_query.format(number=h.localised_number(count)) }}
+  {%- else -%}
+    {{ text_no_query_none }}
+  {%- endif -%}
+{%- endif -%}

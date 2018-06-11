@@ -185,6 +185,10 @@ def get_grafica_base_url():
     url_grafica_base = os.environ.get("GRAFICA_BASE_URL", "https://cdn.datos.gob.mx/assets/css/main.css")
     return url_grafica_base
 
+def get_total_datasets():
+    datasets = toolkit.get_action('package_list')
+    return len(datasets)
+
 def get_cdn_url():
     is_prd = os.environ.get("IS_PRD", False)
     cdn_url = 'https://cdn.datos.gob.mx/qa/bower_components/'
@@ -277,6 +281,7 @@ class MxthemePlugin(plugins.SingletonPlugin):
             'get_adela_endpoint': get_adela_endpoint,
             'get_api_endpoint': get_api_endpoint,
             'get_geoserver_endpoint': get_geoserver_endpoint,
+            'get_total_datasets':get_total_datasets,
             'sorted_extras_dgm': sorted_extras_dgm,
             'get_grafica_base_url': get_grafica_base_url,
             'get_cdn_url': get_cdn_url,
