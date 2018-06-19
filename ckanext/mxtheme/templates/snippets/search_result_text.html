@@ -7,30 +7,22 @@ count        - The number of results for the search
 type         - Search result type (dataset, group, organization)
 
 Example:
+
 {% snippet 'snippets/search_result_text.html', query=query, count=count, type='dataset' %}
+
 #}
 
-
-{#
 {% if type == 'dataset' %}
-  {% set text_query = ungettext('{number} dataset found for "{query}"', '{number} datasets found for "{query}"', count) %}
-  {% set text_query_none = _('No datasets found for "{query}"') %}
-  {% set text_no_query = ungettext('{number} dataset found', '{number} datasets found', count) %}
-  {% set text_no_query_none = _('No datasets found') %}
-  #}
+  {% set text_query = ungettext('{number} Dato en datos.gob.mx para "{query}"', '{number} Datos en datos.gob.mx para "{query}"', count) %}
+  {% set text_query_none = 'No existen datos en datos.gob.mx para "{query}"' %}
+  {% set text_no_query = 'Datos en datos.gob.mx' %}
+  {% set text_no_query_none = 'No existen datos en datos.gob.mx' %}
 
-{% if type == 'harvest' %}
-  {% set text_query = ungettext('{number} harvest source found for "{query}"', '{number} harvest sources found for "{query}"', count) %}
-  {% set text_query_none = _('Sorry no harvest sources found for "{query}"') %}
-  {% set text_no_query = ungettext('{number} harvest source found', '{number} harvest sources found', count) %}
-  {% set text_no_query_none = _('Sorry no harvest sources found') %}
-{%- endif -%}
-
-{% if type == 'group' %}
-  {% set text_query = ungettext('{number} group found for "{query}"', '{number} groups found for "{query}"', count) %}
-  {% set text_query_none = _('No groups found for "{query}"') %}
-  {% set text_no_query = ungettext('{number} group found', '{number} groups found', count) %}
-  {% set text_no_query_none = _('No groups found') %}
+{% elif type == 'group' %}
+  {% set text_query = ungettext('{number} Grupo encontrado para "{query}"', '{number} Grupos encontrados para "{query}"', count) %}
+  {% set text_query_none = 'No se encontraron grupos para "{query}"' %}
+  {% set text_no_query = ungettext('{number} grupo encontrado', '{number} grupos encontrados', count) %}
+  {% set text_no_query_none = 'No existen grupos' %}
 
 {% elif type == 'organization' %}
   {% set text_query = ungettext('{number} Institución encontrada para "{query}"', '{number} Instituciones encontradas para "{query}"', count) %}
@@ -39,21 +31,16 @@ Example:
   {% set text_no_query_none = 'No existen instituciones' %}
 {%- endif -%}
 
-{% if type != 'dataset' %}
-  {% if query %}
-    {%- if count -%}
-      {{ text_query.format(number=h.localised_number(count), query=query) }}
-    {%- else -%}
-      {{ text_query_none.format(query=query) }}
-    {%- endif -%}
+{% if query %}
+  {%- if count -%}
+    {{ text_query.format(number=h.localised_number(count), query=query) }}
   {%- else -%}
-    {%- if count -%}
-      {{ text_no_query.format(number=h.localised_number(count)) }}
-    {%- else -%}
-      {{ text_no_query_none }}
-    {%- endif -%}
+    {{ text_query_none.format(query=query) }}
   {%- endif -%}
-{% else %}
-  <span class="counter-datos-ds"></span> Datos en datos.gob.mx
-{% endif %}
-
+{%- else -%}
+  {%- if count -%}
+    {{ text_no_query.format(number=h.localised_number(count)) }}
+  {%- else -%}
+    {{ text_no_query_none }}
+  {%- endif -%}
+{%- endif -%}

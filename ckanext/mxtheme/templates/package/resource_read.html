@@ -130,7 +130,10 @@
                           $("#th_accrualPeriodicity").show();
                         }
                         if(items.temporal){
-                          document.getElementById('temporal').innerHTML = items.temporal;
+                          var dateArray = items.temporal.split('/');
+                          var init = dateArray[0].slice(0, 10);
+                          var end = dateArray[1].slice(0, 10);
+                          document.getElementById('temporal').innerHTML = 'De ' + init + ' a ' + end;
                           $(".temporal").show();
                           $("#th_temporal").show();
                         }
@@ -173,9 +176,42 @@
                   }
 
                   xhr.send();
-              });
+                  var resource_id = "{{res.id}}",
+                      api_datos_url = 'https://api.datos.gob.mx',
+                      api_geo_url = '{{h.get_api_endpoint()}}/ckan-geoserver',
+                      geo_url_wfs = "{{h.get_geoserver_endpoint()}}/ckan/ows?service=WFS&version=1.0.0&request=GetFeature&outputFormat=application/json&typeName=",
+                      geo_url_wms = "{{h.get_geoserver_endpoint()}}/ckan/wms?service=WMS&version=1.1.0&request=GetMap&styles=&bbox=-117.773,14.987,-85.605,32.916&width=800&height=600&srs=EPSG:4326&format=image/png&layers=",
 
-              //$(document).ready( function () { xhr.send(); });
+                      add_url_geo = function(resource){
+                        return '<a href="' + geo_url_wfs + resource.geoserver + '">' + resource.geoserver.slice(38) + '</a>';
+                      };
+                      show_api_geo = function (url) {
+                        $("#spatial_url").html(url);
+                        $("#th_spatial_url").show();
+                        $(".spatial_url").show();
+                      };
+                      show_api = function(api_url){
+                        $("#api_url").html('<a href="' + api_url + '">Consultar</a>');
+                        $("#th_api_url").show();
+                        $(".api_url").show();
+                      };
+                  $.get(api_datos_url,{ 'resource-id': resource_id }, function(data, status){
+                    if(data.results.length > 0){
+                      urlAPI = data.results[0].url;
+                      show_api(urlAPI);
+                    }
+                  });
+
+                  $.get(api_geo_url, { id: resource_id }, function (data, status) {
+                  if (data.results.length > 0) {
+                    var htmlUrls = '';
+                    data.results.forEach(element => {
+                      htmlUrls.concat(add_url_geo(element));
+                    });
+                    show_api_geo(htmlUrls);
+                  }
+                });
+              });
            </script>
            <div id="additionals" class="row">
                 <div id="sidebar" class="col-md-3">
@@ -294,8 +330,16 @@
                                     <th id="th_spatial" scope="row">{{ _('Espacio geográfico') }}</th>
                                     <td id="spatial"></td>
                                   </tr>
+                                  <tr class="spatial_url" style="display: none;">
+                                    <th id="th_spatial_url" scope="row">{{ _('API geográfica') }}</th>
+                                    <td id="spatial_url"></td>
+                                  </tr>
+                                  <tr class="api_url" style="display: none;">
+                                    <th id="th_api_url" scope="row">{{ _('API') }}</th>
+                                    <td id="api_url"></td>
+                                  </tr>
                                   {% for key, value in h.format_resource_items(res.items()) %}
-                                    {% if key == 'package id' or key == 'revision id' or key == 'id' or key == 'resource group id' %}
+                                    {% if key == 'package id' or key == 'revision id' or key == 'id' or key == 'resource group id'%}
                                       <tr class="toggle-more">
                                         {# Esto no va a ser necesario cuando tengamos el idioma actualizado #}
                                         <th scope="row">
@@ -307,10 +351,17 @@
                                           Id
                                           {% elif key == 'resource group id' %}
                                           Id del Grupo de Recursos
+                                          {% else %}
+                                          {{_(key)}}
                                           {% endif %}
                                         </th>
                                         <td>
-                                          {{ _(value) }}
+                                          {% if key == "temporal_start" or key == "temporal_end" %}
+                                            {{ h.get_human_date(value) }}
+                                          {% else %}
+                                            {{ _(value) }}
+                                          {% endif %}
+
                                         </td>
                                       </tr>
                                     {% endif %}

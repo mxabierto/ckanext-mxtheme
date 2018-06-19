@@ -6591,6 +6591,17 @@ li > a:hover {
 .custom-select select {
   color: #9b9b9b;
 }
+.custom-select{
+  background:#fff url("../img/ic_arrow_down.png") no-repeat 95% 50%
+}
+/* FUCKING INTERNET EXPLORER */
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {  
+   /* IE10+ specific styles go here */
+   
+   .custom-select{
+     background: transparent;
+    } 
+}
 .custom-select::before,
 .custom-select::after {
   font-family: 'Glyphicons Halflings';
@@ -6731,10 +6742,7 @@ body {
 }
 dgm-footer {
   width: 100%;
-  height: 432px;
   position: absolute;
-  left: 0;
-  bottom: 0;
 }
 /********************************
     Forms Styles
@@ -6767,14 +6775,6 @@ dgm-footer {
   display: inline-block;
   position: absolute;
   right: 8px;
-}
-.custom-select::before {
-  content: "\e252";
-  bottom: 2px;
-}
-.custom-select::after {
-  content: "\e253";
-  top: 2px;
 }
 .custom-select select {
   border: none;

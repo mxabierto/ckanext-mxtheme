@@ -15,7 +15,7 @@
 {% endblock -%}
 
 {% block content_action %}
-  <a href="https://www.data.gov/issue/?media_url={{g.site_url}}{{ h.url_for(controller='package', action='read', id=pkg.name) }}" class="btn btn-danger" style="float: right; padding-right: 12px !important;">Reportar</a>
+  <a href="https://datos.gob.mx/issue/?media_url={{g.site_url}}/busca/organization/{{h.slugify_text(pkg.organization.name)}}/dataset/{{h.slugify_text(pkg.name)}}/" class="btn btn-danger" style="float: right; padding-right: 12px !important;">Reportar</a>
   {% if h.check_access('package_update', {'id':pkg.id }) %}
     {% link_for _('Manage'), controller='package', action='edit', id=pkg.name, class_='btn btn-primary', icon='wrench' %}
   {% endif %}
