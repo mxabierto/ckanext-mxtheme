@@ -49,8 +49,8 @@ within_tertiary
     {% block facet_list_item %}
       <!-- Open Facets -->
         {% block facet_list_heading %}
-          {% set title = title or h.get_facet_title(name) %}
-          <a href="#item-{{ h.slugify_text(h.get_facet_title(name)) }}" class="module-heading list-group-item ckan-group-item ckan-header-group" data-toggle="collapse">
+
+          <a href="#item-{{ h.slugify_text(name) }}" class="module-heading list-group-item ckan-group-item ckan-header-group" data-toggle="collapse">
             {{ title }}
               <i class="glyphicon glyphicon-chevron-down" style="float: right"></i>
           </a>
@@ -59,7 +59,7 @@ within_tertiary
           {% with items = items or h.get_facet_items_dict(name) %}
           {% if items %}
 
-              <div class="list-group collapse" id="item-{{h.slugify_text(h.get_facet_title(name))}}">
+              <div class="list-group collapse" id="item-{{h.slugify_text(name)}}">
               <ul class="filters-menu">
                 {% for item in items %}
                   {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
@@ -100,7 +100,7 @@ within_tertiary
             <p class="module-content empty">{{ _('There are no {facet_type} that match this search').format(facet_type=title) }}</p>
             #}
           {% else %}
-            <div class="list-group collapse" id="item-{{h.slugify_text(h.get_facet_title(name))}}">
+            <div class="list-group collapse" id="item-{{h.slugify_text(name)}}">
               <ul class="filters-menu">
                 <li class="list-group-item ckan-group-item">{{ _('There are no {facet_type} that match this search').format(facet_type=title) }}</li>
               </ul>

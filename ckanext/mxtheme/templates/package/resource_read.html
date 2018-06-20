@@ -56,45 +56,44 @@
         {% endif %}
 
       {% block data_preview %}
-      {% block resource_view %}
-
-        {% block resource_view_nav %}
-          {% set resource_preview = h.resource_preview(c.resource, c.package) %}
-          {% snippet "package/snippets/resource_views_list.html",
-             views=resource_views,
-             pkg=pkg,
-             is_edit=false,
-             view_id=current_resource_view['id'],
-             resource_preview=resource_preview,
-             resource=c.resource,
-             extra_class="nav-tabs-plain"
-           %}
-        {% endblock %}
-        {% block resource_view_content %}
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="preview">
-                {% set resource_preview = h.resource_preview(c.resource, c.package) %}
-                  {% set views_created = res.has_views or resource_preview %}
-                  {% if views_created %}
-                    {% if resource_preview and not current_resource_view %}
-                      {{ h.resource_preview(c.resource, c.package) }}
-                    {% else %}
-                      {% for resource_view in resource_views %}
-                        {% if resource_view == current_resource_view %}
-                          {% snippet 'package/snippets/resource_view.html',
-                             resource_view=resource_view,
-                             resource=c.resource,
-                             package=c.package
-                           %}
-                        {% endif %}
-                      {% endfor %}
-                    {% endif %}
-                  {% endif %}
-                </div>
-            </div>
+        {% block resource_view %}
+          {% block resource_view_nav %}
+            {% set resource_preview = h.resource_preview(c.resource, c.package) %}
+            {% snippet "package/snippets/resource_views_list.html",
+              views=resource_views,
+              pkg=pkg,
+              is_edit=false,
+              view_id=current_resource_view['id'],
+              resource_preview=resource_preview,
+              resource=c.resource,
+              extra_class="nav-tabs-plain"
+            %}
           {% endblock %}
-       {% endblock %}
-       {% endblock %}
+          {% block resource_view_content %}
+              <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane active" id="preview">
+                  {% set resource_preview = h.resource_preview(c.resource, c.package) %}
+                    {% set views_created = res.has_views or resource_preview %}
+                    {% if views_created %}
+                      {% if resource_preview and not current_resource_view %}
+                        {{ h.resource_preview(c.resource, c.package) }}
+                      {% else %}
+                        {% for resource_view in resource_views %}
+                          {% if resource_view == current_resource_view %}
+                            {% snippet 'package/snippets/resource_view.html',
+                              resource_view=resource_view,
+                              resource=c.resource,
+                              package=c.package
+                            %}
+                          {% endif %}
+                        {% endfor %}
+                      {% endif %}
+                    {% endif %}
+                  </div>
+              </div>
+          {% endblock %}
+        {% endblock %}
+      {% endblock %}
 
        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
        <script type="text/javascript">
@@ -361,7 +360,6 @@
                                           {% else %}
                                             {{ _(value) }}
                                           {% endif %}
-
                                         </td>
                                       </tr>
                                     {% endif %}
