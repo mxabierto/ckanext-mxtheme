@@ -56,26 +56,25 @@ right: 10px; height: 20px; padding: 0; border: none; background: transparent;">
 </form>
 <!-- facets -->
 <div class="col-md-12 col-sm-12">
-  {% block search_facets %}
+  {% block search_facets %} 
     {% if facets %}
-      <p class="filters-list">
+      <p class="filter-list">
         {% for field in facets.fields %}
-          <span>
           {% set search_facets_items = facets.search.get(field)['items'] %}
-          <span>{{ facets.titles.get(field) }}:</span>
+          <span class="facet">{{ facets.titles.get(field) }}:</span>
           {% for value in facets.fields[field] %}
-            <span class="filter-item">
+            <span class="filtered pill">
               {%- if facets.translated_fields and facets.translated_fields.has_key((field,value)) -%}
                 {{ facets.translated_fields[(field,value)] }}
               {%- else -%}
                 {{ h.list_dict_filter(search_facets_items, 'name', 'display_name', value) }}
               {%- endif %}
-              <a href="{{ facets.remove_field(field, value) }}" class="btn-dismiss remove" title="{{ _('Remove') }}"><i class="icon-remove"></i></a>
+              <a href="{{ facets.remove_field(field, value) }}" class="remove" title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
             </span>
           {% endfor %}
-          </span>
         {% endfor %}
       </p>
+      <a class="show-filters btn">{{ _('Filter Results') }}</a>
     {% endif %}
   {% endblock %}
 </div>
