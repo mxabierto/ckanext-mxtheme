@@ -7431,3 +7431,13 @@ h1:after {
 .l-xs{
   width: 40%;
 }
+
+.ckan-group-item {
+  border-radius: 0px !important;
+  margin: 0 !important;
+  border-left: 0px !important;
+  border-right: 0px !important;
+}
+.ckan-header-group {
+  background-color: #f3f3f3 !important;
+}
