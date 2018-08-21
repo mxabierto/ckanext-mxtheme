@@ -6638,8 +6638,9 @@ li > a:hover {
 
 @media screen and (max-width: 675px) {
   .dataset-item h3 > a {
-    margin-top: -20px;
-    padding-left: 40px;
+    padding-top: 35px;
+    padding-left: 10px;
+    width: 90%;
   }
 }
 @media screen and (min-width: 676px) {
@@ -6901,7 +6902,6 @@ dgm-footer {
     Pagination Styles
 ********************************/
 .pagination ul {
-  margin: 20px auto 100px;
   position: relative;
   left: 50%;
   -webkit-transform: translateX(-50%);
@@ -7046,8 +7046,8 @@ h1:after {
 }
 .dataset-item h3,
 .dataset-item .dependency {
-  margin-top: 10px;
-  width: fit-content;
+  margin-top: 5px;
+  width: 100%;
 }
 
 .dataset-item h4 {
@@ -7376,7 +7376,7 @@ h1:after {
 
 .results-home, .counter-datos-ds { margin-top: 10px;}
 .custom-select { width: 66% !important; }
-.pagination-centered { display: block !important; margin: 0px !important; height: 75px;}
+.pagination-centered { display: block !important; margin: 0px !important; }
 [class^="icon-"]:before, [class*=" icon-"]:before {
   font-family: FontAwesome !important;
 }

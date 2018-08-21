@@ -15,7 +15,7 @@ Example:
 {% if type == 'dataset' %}
   {% set text_query = ungettext('{number} Dato en datos.gob.mx para "{query}"', '{number} Datos en datos.gob.mx para "{query}"', count) %}
   {% set text_query_none = 'No existen datos en datos.gob.mx para "{query}"' %}
-  {% set text_no_query = 'Datos en datos.gob.mx' %}
+  {% set text_no_query = ungettext('{number} Dato en datos.gob.mx', '{number} Datos en datos.gob.mx', count) %}
   {% set text_no_query_none = 'No existen datos en datos.gob.mx' %}
 
 {% elif type == 'group' %}

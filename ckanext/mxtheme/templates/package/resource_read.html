@@ -56,45 +56,44 @@
         {% endif %}
 
       {% block data_preview %}
-      {% block resource_view %}
-
-        {% block resource_view_nav %}
-          {% set resource_preview = h.resource_preview(c.resource, c.package) %}
-          {% snippet "package/snippets/resource_views_list.html",
-             views=resource_views,
-             pkg=pkg,
-             is_edit=false,
-             view_id=current_resource_view['id'],
-             resource_preview=resource_preview,
-             resource=c.resource,
-             extra_class="nav-tabs-plain"
-           %}
-        {% endblock %}
-        {% block resource_view_content %}
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="preview">
-                {% set resource_preview = h.resource_preview(c.resource, c.package) %}
-                  {% set views_created = res.has_views or resource_preview %}
-                  {% if views_created %}
-                    {% if resource_preview and not current_resource_view %}
-                      {{ h.resource_preview(c.resource, c.package) }}
-                    {% else %}
-                      {% for resource_view in resource_views %}
-                        {% if resource_view == current_resource_view %}
-                          {% snippet 'package/snippets/resource_view.html',
-                             resource_view=resource_view,
-                             resource=c.resource,
-                             package=c.package
-                           %}
-                        {% endif %}
-                      {% endfor %}
-                    {% endif %}
-                  {% endif %}
-                </div>
-            </div>
+        {% block resource_view %}
+          {% block resource_view_nav %}
+            {% set resource_preview = h.resource_preview(c.resource, c.package) %}
+            {% snippet "package/snippets/resource_views_list.html",
+              views=resource_views,
+              pkg=pkg,
+              is_edit=false,
+              view_id=current_resource_view['id'],
+              resource_preview=resource_preview,
+              resource=c.resource,
+              extra_class="nav-tabs-plain"
+            %}
           {% endblock %}
-       {% endblock %}
-       {% endblock %}
+          {% block resource_view_content %}
+              <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane active" id="preview">
+                  {% set resource_preview = h.resource_preview(c.resource, c.package) %}
+                    {% set views_created = res.has_views or resource_preview %}
+                    {% if views_created %}
+                      {% if resource_preview and not current_resource_view %}
+                        {{ h.resource_preview(c.resource, c.package) }}
+                      {% else %}
+                        {% for resource_view in resource_views %}
+                          {% if resource_view == current_resource_view %}
+                            {% snippet 'package/snippets/resource_view.html',
+                              resource_view=resource_view,
+                              resource=c.resource,
+                              package=c.package
+                            %}
+                          {% endif %}
+                        {% endfor %}
+                      {% endif %}
+                    {% endif %}
+                  </div>
+              </div>
+          {% endblock %}
+        {% endblock %}
+      {% endblock %}
 
        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
        <script type="text/javascript">
@@ -181,11 +180,13 @@
                       api_geo_url = '{{h.get_api_endpoint()}}/ckan-geoserver',
                       geo_url_wfs = "{{h.get_geoserver_endpoint()}}/ckan/ows?service=WFS&version=1.0.0&request=GetFeature&outputFormat=application/json&typeName=",
                       geo_url_wms = "{{h.get_geoserver_endpoint()}}/ckan/wms?service=WMS&version=1.1.0&request=GetMap&styles=&bbox=-117.773,14.987,-85.605,32.916&width=800&height=600&srs=EPSG:4326&format=image/png&layers=",
-
-                      add_url_geo = function(resource){
-                        return '<a href="' + geo_url_wfs + resource.geoserver + '">' + resource.geoserver.slice(38) + '</a>';
+                      
+                      add_url_geo = function (resource) {
+                        var name_api = resource.name_resource ? resource.name_resource : resource.geoserver;
+                        return '<a href="' + geo_url_wfs + resource.geoserver + '">' + name_api + '</a>'; 
                       };
                       show_api_geo = function (url) {
+                        console.log(url);
                         $("#spatial_url").html(url);
                         $("#th_spatial_url").show();
                         $(".spatial_url").show();
@@ -202,11 +203,11 @@
                     }
                   });
 
-                  $.get(api_geo_url, { id: resource_id }, function (data, status) {
+                  $.get(api_geo_url, { ckan: resource_id }, function (data, status) {
                   if (data.results.length > 0) {
                     var htmlUrls = '';
                     data.results.forEach(element => {
-                      htmlUrls.concat(add_url_geo(element));
+                      htmlUrls = htmlUrls + add_url_geo(element);
                     });
                     show_api_geo(htmlUrls);
                   }
@@ -361,7 +362,6 @@
                                           {% else %}
                                             {{ _(value) }}
                                           {% endif %}
-
                                         </td>
                                       </tr>
                                     {% endif %}
