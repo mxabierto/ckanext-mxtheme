@@ -7431,3 +7431,10 @@ h1:after {
 .l-xs{
   width: 40%;
 }
+
+
+#spatial_url{
+  display: grid;
+  overflow-x: overlay;
+  border: 0;
+}

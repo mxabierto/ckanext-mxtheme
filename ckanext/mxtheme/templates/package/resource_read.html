@@ -182,11 +182,10 @@
                       geo_url_wms = "{{h.get_geoserver_endpoint()}}/ckan/wms?service=WMS&version=1.1.0&request=GetMap&styles=&bbox=-117.773,14.987,-85.605,32.916&width=800&height=600&srs=EPSG:4326&format=image/png&layers=",
                       
                       add_url_geo = function (resource) {
-                        var name_api = resource.name_resource ? resource.name_resource : resource.geoserver;
+                        var name_api = resource.geoserver;
                         return '<a href="' + geo_url_wfs + resource.geoserver + '">' + name_api + '</a>'; 
                       };
                       show_api_geo = function (url) {
-                        console.log(url);
                         $("#spatial_url").html(url);
                         $("#th_spatial_url").show();
                         $(".spatial_url").show();
@@ -196,6 +195,12 @@
                         $("#th_api_url").show();
                         $(".api_url").show();
                       };
+                      checkLengthGeo = function (length) {
+                        if(length > 8){
+                          $("#th_spatial_url").css("height", "200px");
+                        }
+                      };
+
                   $.get(api_datos_url,{ 'resource-id': resource_id }, function(data, status){
                     if(data.results.length > 0){
                       urlAPI = data.results[0].url;
@@ -206,6 +211,7 @@
                   $.get(api_geo_url, { ckan: resource_id }, function (data, status) {
                   if (data.results.length > 0) {
                     var htmlUrls = '';
+                    checkLengthGeo(data.results.length)
                     data.results.forEach(element => {
                       htmlUrls = htmlUrls + add_url_geo(element);
                     });
