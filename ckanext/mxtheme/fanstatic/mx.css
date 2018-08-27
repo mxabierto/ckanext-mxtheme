@@ -7428,8 +7428,24 @@ h1:after {
   font-weight: bold !important;
 }
 
-.l-xs{
-  width: 40%;
+.l-xs {
+  display: block;
+  overflow: hidden;
+}
+
+#spatial_url a { display: inline-block; }
+
+@media screen and (max-width: 575px) {
+  .l-xs { width: 100px; }
+}
+
+@media screen and (min-width: 576px) {
+  .l-xs { width: 200px; }
+
+  table {
+    display: block;
+    overflow-x: scroll;
+  }
 }
 
 .ckan-group-item {
