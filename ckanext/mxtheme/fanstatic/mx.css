@@ -7432,9 +7432,9 @@ h1:after {
   width: 40%;
 }
 
-#spatial_url{
+#spatial_url {
   display: grid;
-  overflow-x: overlay;
+  overflow: overlay;
   border: 0;
 }
 
@@ -7447,4 +7447,28 @@ h1:after {
 
 .ckan-header-group {
   background-color: #f3f3f3 !important;
+}
+
+@media (min-width: 300px) and (max-width: 350px) {
+  #spatial_url a {
+    width: 10vh;
+  }
+}
+
+@media (min-width: 351px) and (max-width: 450px) {
+  #spatial_url a {
+    width: 15vh;
+  }
+}
+
+@media (min-width: 451px) and (max-width: 550px) {
+  #spatial_url a {
+    width: 22vh;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .l-xs {
+    width: 100%;
+  }
 }
