@@ -7434,7 +7434,7 @@ h1:after {
 
 #spatial_url{
   display: grid;
-  overflow-x: overlay;
+  overflow: overlay;
   border: 0;
 }
 
@@ -7447,4 +7447,17 @@ h1:after {
 
 .ckan-header-group {
   background-color: #f3f3f3 !important;
+}
+
+
+@media screen and (max-width: 350px) {
+  #spatial_url a {
+    width: 14vh;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .l-xs {
+    width: 100%;
+  }
 }
