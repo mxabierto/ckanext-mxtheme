@@ -183,7 +183,7 @@
                       
                       add_url_geo = function (resource) {
                         var name_api = resource.geoserver;
-                        return '<a href="' + geo_url_wfs + resource.geoserver + '">' + name_api + '</a>'; 
+                        return '<a href="' + geo_url_wfs + resource.geoserver + '">' + name_api + '</a><br>'; 
                       };
                       show_api_geo = function (url) {
                         $("#spatial_url").html(url);
@@ -211,7 +211,7 @@
                   $.get(api_geo_url, { ckan: resource_id }, function (data, status) {
                   if (data.results.length > 0) {
                     var htmlUrls = '';
-                    checkLengthGeo(data.results.length)
+                    checkLengthGeo(data.results.length);
                     data.results.forEach(element => {
                       htmlUrls = htmlUrls + add_url_geo(element);
                     });
