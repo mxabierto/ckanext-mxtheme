@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $.ajax("https://api.datos.gob.mx/v1/resources?pageSize=1")
+    $.ajax("https://api.datos.gob.mx/v2/resources?pageSize=1")
     .done(function(data){
       $('.counter-datos-ds').html(data.pagination.total.toLocaleString());
     })

@@ -112,13 +112,7 @@
       #}
       {% block scripts -%}
       <script src="https://cdn.datos.gob.mx/bower_components/webcomponentsjs/webcomponents-lite.min.js" type="text/javascript"></script>
-      {% resource 'mxtheme/popper.js' %}
-      {% resource 'mxtheme/bootstrap.js' %}
       {% resource 'mxtheme/mx.js' %}
-
-      {% block extra_js %}
-      {% resource 'mxtheme/webcomponents-lite.js' %}
-      {% endblock %}
     {%- endblock %}
 
   {% block body_extras -%}
