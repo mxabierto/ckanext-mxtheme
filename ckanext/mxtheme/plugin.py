@@ -178,7 +178,7 @@ def get_api_endpoint():
     return api_endpoint
 
 def get_geoserver_endpoint():
-    geoserver_endpoint = os.environ.get("GEOSERVER_ENDPOINT", "http://10.20.55.7:8000/geoserver")
+    geoserver_endpoint = os.environ.get("GEOSERVER_ENDPOINT", "https://geo.datos.gob.mx/geoserver")
     return geoserver_endpoint
 
 def get_grafica_base_url():
