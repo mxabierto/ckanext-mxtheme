@@ -26,7 +26,7 @@
 
 {% block extra_js %}
   <script type="text/javascript">
-    function registerDownload(event){
+    function registerDownload(downloadEvent){
       ga('send', { 'hitType': 'pageview', 'page': '/busca/organization/{{h.slugify_text(c.package.organization.name)}}/dataset/{{h.slugify_text(c.package.name)}}/resource/{{ h.slugify_text(h.resource_display_name(res)) }}/download', 'title': 'Download: {{ h.resource_display_name(res) | truncate(150) }}' });
       return true;
     }
@@ -101,7 +101,7 @@
            $('.tab-content').hide();
            $('.nav-tabs-plain').hide();
            var notFormatValid= $('.data-viewer-info');
-           if (notFormatValid.length == 0) {
+           if (notFormatValid.length === 0) {
              setTimeout(function(){
                var hide= $('.recline-data-explorer');
                if(hide.length > 0) {
@@ -121,7 +121,7 @@
 
                   xhr.open('GET', '{{h.get_adela_endpoint()}}/{{h.slugify_text(h.resource_display_name(res))}}', false);
                   xhr.onreadystatechange = function () {
-                      if (xhr.readyState===4 && xhr.status===200) {
+                      if (xhr.readyState === 4 && xhr.status === 200) {
                         var items = JSON.parse(xhr.responseText).distribution;
                         if(items.dataset){
                           document.getElementById('accrualPeriodicity').innerHTML = items.dataset.accrualPeriodicity;
@@ -180,35 +180,35 @@
                       api_geo_url = '{{h.get_api_endpoint()}}/ckan-geoserver',
                       geo_url_wfs = "{{h.get_geoserver_endpoint()}}/ckan/ows?service=WFS&version=1.0.0&request=GetFeature&outputFormat=application/json&typeName=",
                       geo_url_wms = "{{h.get_geoserver_endpoint()}}/ckan/wms?service=WMS&version=1.1.0&request=GetMap&styles=&bbox=-117.773,14.987,-85.605,32.916&width=800&height=600&srs=EPSG:4326&format=image/png&layers=",
-                      
-                      add_url_geo = function (resource) {
+
+                      var add_url_geo = function (resource) {
                         var name_api = resource.geoserver;
-                        return '<a href="' + geo_url_wfs + resource.geoserver + '">' + name_api + '</a><br>'; 
+                        return '<a href="' + geo_url_wfs + resource.geoserver + '">' + name_api + '</a><br>';
                       };
-                      show_api_geo = function (url) {
+                      var show_api_geo = function (url) {
                         $("#spatial_url").html(url);
                         $("#th_spatial_url").show();
                         $(".spatial_url").show();
                       };
-                      show_api = function(api_url){
+                      var show_api = function(api_url){
                         $("#api_url").html('<a href="' + api_url + '">Consultar</a>');
                         $("#th_api_url").show();
                         $(".api_url").show();
                       };
-                      checkLengthGeo = function (length) {
+                      var checkLengthGeo = function (length) {
                         if(length > 8){
                           $("#th_spatial_url").css("height", "200px");
                         }
                       };
 
-                  $.get(api_datos_url,{ 'resource-id': resource_id }, function(data, status){
+                  $.get(api_datos_url,{ 'resource-id': resource_id }, function(data){
                     if(data.results.length > 0){
-                      urlAPI = data.results[0].url;
+                      var urlAPI = data.results[0].url;
                       show_api(urlAPI);
                     }
                   });
 
-                  $.get(api_geo_url, { ckan: resource_id }, function (data, status) {
+                  $.get(api_geo_url, { ckan: resource_id }, function (data) {
                   if (data.results.length > 0) {
                     var htmlUrls = '';
                     checkLengthGeo(data.results.length);

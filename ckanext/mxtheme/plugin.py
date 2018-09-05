@@ -41,9 +41,8 @@ def _add_i18n_to_url(url_to_amend, **kw):
     allowed_locales = ['default']
     if locale and locale not in allowed_locales:
         locale = None
-    if locale:
-        if locale == 'default':
-            default_locale = True
+    if locale == 'default':
+        default_locale = True
     else:
         try:
             locale = request.environ.get('CKAN_LANG')
@@ -237,7 +236,7 @@ def get_human_date(date):
     try:
         #2000 - 01 - 01T00: 00: 00Z
         return datetime.datetime.strptime(date, "%Y-%m-%dT%H:%M:%SZ").strftime("%Y-%m-%d")
-    except:
+    except Exception:
         return date
 
 
