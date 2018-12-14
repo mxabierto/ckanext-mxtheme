@@ -7446,19 +7446,10 @@ h1:after {
   overflow: hidden;
 }
 
-#spatial_url a { display: inline-block; }
-
-@media screen and (max-width: 575px) {
-  .l-xs { width: 100px; }
-}
-
-@media screen and (min-width: 576px) {
-  .l-xs { width: 200px; }
-
-  table {
-    display: block;
-    overflow-x: scroll;
-  }
+#spatial_url {
+  display: grid;
+  overflow: overlay;
+  border: 0;
 }
 
 .ckan-group-item {
@@ -7467,6 +7458,31 @@ h1:after {
   border-left: 0px !important;
   border-right: 0px !important;
 }
+
 .ckan-header-group {
   background-color: #f3f3f3 !important;
+}
+
+@media (min-width: 300px) and (max-width: 350px) {
+  #spatial_url a {
+    width: 10vh;
+  }
+}
+
+@media (min-width: 351px) and (max-width: 450px) {
+  #spatial_url a {
+    width: 15vh;
+  }
+}
+
+@media (min-width: 451px) and (max-width: 550px) {
+  #spatial_url a {
+    width: 22vh;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .l-xs {
+    width: 100%;
+  }
 }

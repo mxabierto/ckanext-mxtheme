@@ -41,9 +41,8 @@ def _add_i18n_to_url(url_to_amend, **kw):
     allowed_locales = ['default']
     if locale and locale not in allowed_locales:
         locale = None
-    if locale:
-        if locale == 'default':
-            default_locale = True
+    if locale == 'default':
+        default_locale = True
     else:
         try:
             locale = request.environ.get('CKAN_LANG')
@@ -178,7 +177,7 @@ def get_api_endpoint():
     return api_endpoint
 
 def get_geoserver_endpoint():
-    geoserver_endpoint = os.environ.get("GEOSERVER_ENDPOINT", "http://10.20.55.7:8000/geoserver")
+    geoserver_endpoint = os.environ.get("GEOSERVER_ENDPOINT", "https://geo.datos.gob.mx/geoserver")
     return geoserver_endpoint
 
 def get_grafica_base_url():
@@ -237,7 +236,7 @@ def get_human_date(date):
     try:
         #2000 - 01 - 01T00: 00: 00Z
         return datetime.datetime.strptime(date, "%Y-%m-%dT%H:%M:%SZ").strftime("%Y-%m-%d")
-    except:
+    except Exception:
         return date
 
 

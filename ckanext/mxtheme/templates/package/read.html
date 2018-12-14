@@ -21,13 +21,13 @@
   {% set pkg = c.pkg_dict %}
   {% if h.check_access('package_update', {'id': pkg.id }) %}
   <script type="text/javascript">
-    function registerDownload(event){
-      ga('send', { 'hitType': 'pageview', 'page': '/busca/organization/{{h.slugify_text(pkg.organization.name)}}/dataset/{{h.slugify_text(pkg.name)}}/resource/'+ $(event).attr('data-slug') + '/download', 'title': 'Download: ' + $(event).attr('data-name') });
+    function registerDownload(downloadEvent){
+      ga('send', { 'hitType': 'pageview', 'page': '/busca/organization/{{h.slugify_text(pkg.organization.name)}}/dataset/{{h.slugify_text(pkg.name)}}/resource/'+ $(downloadEvent).attr('data-slug') + '/download', 'title': 'Download: ' + $(downloadEvent).attr('data-name') });
       return true;
     }
   </script>
   {% endif %}
-    
+
 {% endblock %}
 
 
